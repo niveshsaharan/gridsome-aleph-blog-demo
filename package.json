@@ -1,0 +1,13 @@
+{
+  "name": "aleph-gs",
+  "private": true,
+  "scripts": {
+    "develop": "gridsome develop",
+    "explore": "gridsome explore",
+    "build": "gridsome build"
+  },
+  "dependencies": {
+    "aleph-js": "^0.4.3",
+    "gridsome": "^0.7.0"
+  }
+}
