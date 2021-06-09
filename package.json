@@ -1,5 +1,6 @@
 {
   "name": "aleph-gs",
+  "author": "Nivesh",
   "private": true,
   "scripts": {
     "develop": "gridsome develop",
