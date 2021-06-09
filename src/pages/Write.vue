@@ -157,22 +157,39 @@ export default {
 
       const tags = this.tags.split(',').filter(tag => tag && tag.trim());
 
-      const response = await posts.submit(
-          this.account.address,
-          'posts',
-          {
-            title: this.title,
-            body: this.body,
-            category: this.category,
-            tags: tags,
-            meta_description: this.meta_description
-          }, {
-            account: this.account,
-            channel: 'blog',
-          });
+      try{
+        const response = await posts.submit(
+            this.account.address,
+            'posts',
+            {
+              title: this.title,
+              body: this.body,
+              category: this.category,
+              tags: tags,
+              meta_description: this.meta_description
+            }, {
+              account: this.account,
+              channel: 'blog',
+            });
 
-        alert("Post is created");
-        window.location.href = '/';
+
+          if(process.env.GRIDSOME_DEPLOY_HOOK_URL)
+          {
+            await fetch(process.env.GRIDSOME_DEPLOY_HOOK_URL, {
+              method: 'POST'
+            });
+
+            alert("Post is created and you should see that once the next deployment is completed!");
+          }
+          else{
+            alert("Post is created");
+          }
+
+          window.location.href = '/';
+      }
+      catch (error){
+        alert("something went wrong: " + error);
+      }
     }
   },
   mounted(){
