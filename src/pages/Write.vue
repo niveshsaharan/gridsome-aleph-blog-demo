@@ -30,7 +30,7 @@
             </div>
 
             <div class="sm:col-span-6">
-              <label for="about" class="block text-sm font-medium text-gray-700">
+              <label for="body" class="block text-sm font-medium text-gray-700">
                 Post content
               </label>
               <div class="mt-1">
@@ -158,7 +158,7 @@ export default {
         return;
       }
 
-      const tags = this.tags.split(',').filter(tag => tag && tag.trim());
+      const tags = this.tags.split(',').map(tag => tag.trim()).filter(tag => tag && tag.trim());
 
       try{
         const response = await posts.submit(
