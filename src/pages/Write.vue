@@ -49,6 +49,9 @@
                   <option>JavaScript</option>
                   <option>Php</option>
                   <option>Shopify</option>
+                  <option>Random</option>
+                  <option>Other</option>
+                  <option>Crypto</option>
                 </select>
               </div>
             </div>
