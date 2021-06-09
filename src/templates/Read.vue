@@ -18,8 +18,7 @@
       <div class="divide-y xl:divide-y-0 divide-gray-200 pb-16 xl:pb-20"
            style="grid-template-rows: auto 1fr;">
         <div class="divide-y divide-gray-200 xl:pb-0">
-          <div class="prose pt-10 pb-8 max-w-none">
-            {{ $context.content.body }}
+          <div class="prose pt-10 pb-8 max-w-none" v-html="$context.content.body">
           </div>
         </div>
       </div>

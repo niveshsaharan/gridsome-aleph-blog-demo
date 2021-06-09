@@ -17,6 +17,7 @@ module.exports = function (api) {
 
     let totalPages = 1;
     let perPage = 20;
+    let totalPostsCreated = 0;
 
     for (let i = 1; i <= totalPages; i++)
     {
@@ -33,8 +34,27 @@ module.exports = function (api) {
         posts[posts.pagination_item].forEach((post, index) => {
             collection.addNode({
                 ...post,
-            })
+            });
+
+            totalPostsCreated++;
+        });
+    }
+
+    // Just a demo post
+    if( !totalPostsCreated)
+    {
+        // Latest Posts
+        const posts = await alephPosts.get_posts('posts', {
+            pagination: 1,
+            page: 1,
+            hashes: ['8b4473c20beddd89ccec1b7d81a11fdbd6a56e9f59ff6a856fc9dd6c3f8123cd']
         })
+
+        posts[posts.pagination_item].forEach((post, index) => {
+            collection.addNode({
+                ...post,
+            });
+        });
     }
   })
 
@@ -58,14 +78,18 @@ module.exports = function (api) {
       }
     }`)
 
-      data.allBlogPosts.edges.forEach(({ node }) => {
-          createPage({
-              path: `/post/${node.hash}`,
-              component: './src/templates/Read.vue',
-              context: {
-                  ...node
-              }
+      if(data && data.allBlogPosts)
+      {
+          data.allBlogPosts.edges.forEach(({ node }) => {
+              createPage({
+                  path: `/post/${node.hash}`,
+                  component: './src/templates/Read.vue',
+                  context: {
+                      ...node
+                  }
+              })
           })
-      })
+      }
+
   })
 }
