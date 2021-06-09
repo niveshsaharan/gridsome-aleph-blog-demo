@@ -175,7 +175,7 @@ export default {
 
           if(process.env.GRIDSOME_DEPLOY_HOOK_URL)
           {
-            if(! process.env.GRIDSOME_ADMIN_ADDRESS || this.account.address === process.env.GRIDSOME_ADMIN_ADDRESS)
+            if(! process.env.GRIDSOME_ADMIN_ADDRESS || this.account.address.toLowerCase() === process.env.GRIDSOME_ADMIN_ADDRESS.toLowerCase())
             {
               await fetch(process.env.GRIDSOME_DEPLOY_HOOK_URL, {
                 method: 'POST'
