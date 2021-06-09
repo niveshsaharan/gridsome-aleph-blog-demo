@@ -25,7 +25,7 @@ module.exports = function (api) {
         const posts = await alephPosts.get_posts('posts', {
             pagination: perPage,
             page: i,
-            addresses: [process.env.ADMIN_ADDRESS],
+            addresses: [process.env.ADMIN_ADDRESS].filter(Boolean),
             channel: 'blog'
         })
 
