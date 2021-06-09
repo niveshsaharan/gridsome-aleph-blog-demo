@@ -27,7 +27,7 @@ module.exports = function (api) {
             channel: 'blog'
         };
 
-        const addresses = [process.env.ADMIN_ADDRESS].filter(Boolean);
+        const addresses = [process.env.GRIDSOME_ADMIN_ADDRESS].filter(Boolean);
 
         if(addresses && addresses.length){
             configs.addresses = addresses;
