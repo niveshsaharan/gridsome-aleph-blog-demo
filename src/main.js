@@ -3,9 +3,15 @@
 
 import DefaultLayout from '~/layouts/Default.vue'
 import './styles/main.css'
+import moment from 'moment'
+
 
 
 export default function (Vue, { router, head, isClient }) {
+
+  // moment
+  Vue.prototype.moment = moment
+
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
 }

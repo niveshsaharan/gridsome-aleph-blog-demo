@@ -21,26 +21,51 @@ module.exports = function (api) {
     for (let i = 1; i <= totalPages; i++)
     {
         // Latest Posts
-        const posts = await alephPosts.get_posts('blog_pers', {
+        const posts = await alephPosts.get_posts('posts', {
             pagination: perPage,
             page: i,
-           // addresses: [process.env.ADMIN_ADDRESS]
+            addresses: [process.env.ADMIN_ADDRESS],
+            channel: 'blog'
         })
 
         totalPages = Math.ceil(posts.pagination_total / posts.pagination_per_page);
 
         posts[posts.pagination_item].forEach((post, index) => {
             collection.addNode({
-                id: post.hash,
-                title: post.content.title,
-                subtitle: post.content.subtitle,
                 ...post,
             })
         })
     }
   })
 
-  api.createPages(({ createPage }) => {
-    // Use the Pages API here: https://gridsome.org/docs/pages-api/
+  api.createPages(async ({ graphql, createPage }) => {
+      const { data } = await graphql(`{
+      allBlogPosts {
+        edges {
+          node {
+            id
+            hash
+            time
+            content{
+              title
+              body
+              category
+              meta_description
+              tags   
+            }
+          }
+        }
+      }
+    }`)
+
+      data.allBlogPosts.edges.forEach(({ node }) => {
+          createPage({
+              path: `/post/${node.hash}`,
+              component: './src/templates/Read.vue',
+              context: {
+                  ...node
+              }
+          })
+      })
   })
 }

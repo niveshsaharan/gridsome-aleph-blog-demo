@@ -7,10 +7,13 @@
     "build": "gridsome build"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/postcss7-compat": "^2.1.4",
+    "@tailwindcss/typography": "^0.4.1",
     "aleph-js": "^0.4.3",
     "autoprefixer": "^9.8.6",
     "gridsome": "^0.7.0",
+    "moment": "^2.29.1",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.4"
   }
