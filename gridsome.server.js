@@ -21,13 +21,20 @@ module.exports = function (api) {
 
     for (let i = 1; i <= totalPages; i++)
     {
-        // Latest Posts
-        const posts = await alephPosts.get_posts('posts', {
+        const configs = {
             pagination: perPage,
             page: i,
-            addresses: [process.env.ADMIN_ADDRESS].filter(Boolean),
             channel: 'blog'
-        })
+        };
+
+        const addresses = [process.env.ADMIN_ADDRESS].filter(Boolean);
+
+        if(addresses && addresses.length){
+            configs.addresses = addresses;
+        }
+
+        // Latest Posts
+        const posts = await alephPosts.get_posts('posts', configs)
 
         totalPages = Math.ceil(posts.pagination_total / posts.pagination_per_page);
 

@@ -175,14 +175,20 @@ export default {
 
           if(process.env.GRIDSOME_DEPLOY_HOOK_URL)
           {
-            await fetch(process.env.GRIDSOME_DEPLOY_HOOK_URL, {
-              method: 'POST'
-            });
+            if(! process.env.GRIDSOME_ADMIN_ADDRESS || this.account.address === process.env.GRIDSOME_ADMIN_ADDRESS)
+            {
+              await fetch(process.env.GRIDSOME_DEPLOY_HOOK_URL, {
+                method: 'POST'
+              });
 
-            alert("Post is created and you should see that once the next deployment is completed!");
+              alert("Post is created and you should see that once the next deployment is completed!");
+            }
+            else{
+              alert("Post is created but you won't see it because you are not the authorised writer for this blog :)!");
+            }
           }
           else{
-            alert("Post is created");
+            alert("Post is created but you won't see it till the blog is re-deployed!");
           }
 
           window.location.href = '/';
